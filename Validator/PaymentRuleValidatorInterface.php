@@ -16,24 +16,15 @@ declare(strict_types=1);
  *
  */
 
-namespace CoreShop\Component\Payment\Resolver;
+namespace CoreShop\Component\Payment\Validator;
 
 use CoreShop\Component\Payment\Model\PaymentProviderInterface;
-use CoreShop\Component\Payment\Repository\PaymentProviderRepositoryInterface;
 use CoreShop\Component\Resource\Model\ResourceInterface;
 
-class PaymentProviderResolver implements PaymentProviderResolverInterface
+interface PaymentRuleValidatorInterface
 {
-    public function __construct(
-        private PaymentProviderRepositoryInterface $paymentProviderRepository,
-    ) {
-    }
-
-    public function resolvePaymentProviders(ResourceInterface $subject = null): array
-    {
-        /**
-         * @var PaymentProviderInterface[] $paymentProviders
-         */
-        return $this->paymentProviderRepository->findActive();
-    }
+    public function isPaymentRuleValid(
+        PaymentProviderInterface $paymentProvider,
+        ResourceInterface $subject,
+    ): bool;
 }
