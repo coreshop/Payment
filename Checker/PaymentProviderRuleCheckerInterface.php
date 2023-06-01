@@ -16,24 +16,16 @@ declare(strict_types=1);
  *
  */
 
-namespace CoreShop\Component\Payment\Model;
+namespace CoreShop\Component\Payment\Checker;
 
-use CoreShop\Component\Rule\Model\RuleTrait;
+use CoreShop\Component\Payment\Model\PaymentProviderInterface;
+use Coreshop\Component\Payment\Model\PaymentProviderRuleInterface;
+use CoreShop\Component\Resource\Model\ResourceInterface;
 
-/**
- * @psalm-suppress MissingConstructor
- */
-class PaymentRule implements PaymentRuleInterface
+interface PaymentProviderRuleCheckerInterface
 {
-    use RuleTrait;
-
-    /**
-     * @var int
-     */
-    protected $id;
-
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function findValidPaymentProviderRule(
+        PaymentProviderInterface $paymentProvider,
+        ResourceInterface $subject = null,
+    ): ?PaymentProviderRuleInterface;
 }
